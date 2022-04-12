@@ -13,26 +13,20 @@ import React from 'react';
 import {useQuery} from 'react-query';
 import {
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
   useColorScheme,
-  View,
 } from 'react-native';
+import PhotoCarousel from '../components/PhotoCarousel';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
-  const {data} = useQuery('curiosityPhotos', () => fetchCuriosityPhotos(5));
-  console.log('🚀 ~ file: App.tsx ~ line 27 ~ App ~ data', data);
+  const {data} = useQuery('curiosityPhotos', () => fetchCuriosityPhotos(100));
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        style={styles.flex1}
-        contentInsetAdjustmentBehavior="automatic">
-        <View />
-      </ScrollView>
+      <PhotoCarousel photos={data?.data?.photos ?? []} />
     </SafeAreaView>
   );
 };
